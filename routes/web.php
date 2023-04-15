@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotesController;
+use App\Http\Controllers\TodolistAjaxContoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,9 @@ Route::get('/', function () {
 });
 
 Route::resource('notes', NotesController::class);
+
+Route::get('/todolists', function () {
+    return view('todolists.index');
+});
+
+Route::resource('/todolistAjax', TodolistAjaxContoller::class);

@@ -14,9 +14,9 @@ class NotesController extends Controller
     public function index(Request $request)
     {
         $katakunci = $request->katakunci;
-        $jumlahbaris = 4;
+        $jumlahbaris = 5;
         if (strlen($katakunci)) {
-            $data = Note::where('note', 'like', "%$katakunci")->paginate($jumlahbaris);
+            $data = Note::where('note', 'like', "%$katakunci%")->paginate($jumlahbaris);
         } else {
             $data = Note::orderBy('note', 'asc')->paginate(10);
         }
