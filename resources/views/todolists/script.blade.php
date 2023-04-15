@@ -1,4 +1,5 @@
 <script>
+    // 01_PROSES GET DATA
     $(document).ready(function() {
          $('#myTable').DataTable({
              processing:true,
@@ -22,21 +23,22 @@
              ]
          })
     })
-
+    // AJAX GLOBAL SETUP
     $.ajaxSetup({
         headers:{
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     })
-
+    // 02_PROSES TAMBAH DATA
     $('body').on('click','.tombol-tambah', function(e){
-     e.preventDefault();
-     $('#exampleModal').modal('show');
-     $('.tombol-simpan').click(function(){
-        simpan();
-        // console.log(note, option);
-     })
+        e.preventDefault();
+        $('#exampleModal').modal('show');
+        $('.tombol-simpan').click(function(){
+            simpan();
+            // console.log(note, option);
+        })
     })
+    // 03_PROSES EDIT DATA
     $('body').on('click', '.tombol-edit', function(e){
         e.preventDefault();
         let id = $(this).data('id');
@@ -53,8 +55,21 @@
                     simpan(id);
                 })
             }
+        })
     })
+    // 04_PROSES DELETE DATA
+    $('body').on('click', '.tombol-del', function(e){
+        e.preventDefault();
+        if(confirm('Yakin mau hapus data ini?') == true) {
+            let id = $(this).data('id');
+            $.ajax({
+                url: 'todolistAjax/'+id,
+                type: 'DELETE',
+            });
+            $('#myTable').DataTable().ajax.reload();
+        }
     })
+
     function simpan(id = ''){
         let var_url;
         let var_type;
@@ -67,8 +82,8 @@
         }
         console.log(var_type);
         let note = $('#note').val();
-         let radios = $('[name="gridRadios"]');
-         let option;
+        let radios = $('[name="gridRadios"]');
+        let option;
         for (var i = 0, length = radios.length; i < length; i++) {
         if (radios[i].checked) {
             option = radios[i].value;
@@ -83,7 +98,6 @@
                 option
             },
             success:function(response){
-
                 if(response.errors){
                     console.log(response.errors);
                     $('.alert-danger').removeClass('d-none');
@@ -95,11 +109,9 @@
                 }else{
                     $('.alert-success').removeClass('d-none');
                     $('.alert-success').html(response.success);
-
                 }
                 $('#myTable').DataTable().ajax.reload();
             }
-
         })
     }
     $('#exampleModal').on('hidden.bs.modal',function(){
@@ -108,7 +120,6 @@
         $('.alert-danger').html('');
         $('.alert-success').addClass('d-none');
         $('.alert-success').html('');
-
     })
 
  </script>

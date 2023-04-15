@@ -102,6 +102,6 @@ class TodolistAjaxContoller extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Todolist::where('id', $id)->delete();
     }
 }
