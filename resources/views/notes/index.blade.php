@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php $i = 1 ?>
+            <?php $i = $data->firstItem() ?>
             @foreach ($data as $item)
             <tr>
                 <td>{{$i}}</td>
@@ -42,7 +42,7 @@
             @endforeach
         </tbody>
     </table>
-    {{-- {{ $data->withQueryString()->links()}} --}}
+    {{ $data->withQueryString()->links()}}
 </div>
 <!-- AKHIR DATA -->
 @endsection()
