@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Note extends Model
 {
     use HasFactory;
-    protected $fillable = ['note'];
+    protected $fillable = ['note', 'user_id'];
     protected $table = 'notes';
     public $timestamps = false;
-    protected $attributes = [
-        'user_id' => 'user',
-    ];
+    // protected $attributes = [
+    //     'user_id' => 'user',
+    // ];
 }

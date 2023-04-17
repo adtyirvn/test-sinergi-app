@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class NotesController extends Controller
 {
@@ -16,11 +18,14 @@ class NotesController extends Controller
         $katakunci = $request->katakunci;
         $jumlahbaris = 5;
         if (strlen($katakunci)) {
-            $data = Note::where('note', 'like', "%$katakunci%")->paginate($jumlahbaris);
+            $data_new = Note::where('note', 'like', "%$katakunci%")->paginate($jumlahbaris);
         } else {
-            $data = Note::orderBy('note', 'asc')->paginate(10);
+            $data_new = User::join('notes', 'notes.user_id', '=', 'users.id')
+                ->where('users.id', Auth::user()->id)
+                ->get()
+                ->sortBy('note');
         }
-        return view('notes.index')->with('data', $data);
+        return view('notes.index')->with('data', $data_new);
     }
 
     /**
@@ -44,6 +49,7 @@ class NotesController extends Controller
         ]);
         $data = [
             'note' => $request->note,
+            'user_id' => Auth::user()->id,
         ];
         Note::create($data);
         return redirect()->to('notes')->with('success', 'Berhasil menambahkan data');
