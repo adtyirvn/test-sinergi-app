@@ -20,17 +20,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('notes', NotesController::class);
+Route::resource('notes', NotesController::class)->middleware('isLogin');
 
 Route::get('/todolists', function () {
     return view('todolists.index');
-});
+})->middleware('isLogin');
 
-Route::resource('/todolistAjax', TodolistAjaxContoller::class);
+Route::resource('/todolistAjax', TodolistAjaxContoller::class)->middleware('isLogin');
 
-Route::get('/sesi', [SessionController::class, 'index']);
-Route::post('/sesi/login', [SessionController::class, 'login']);
+Route::get('/sesi', [SessionController::class, 'index'])->middleware('isTamu');
+Route::post('/sesi/login', [SessionController::class, 'login'])->middleware('isTamu');
 Route::get('/sesi/logout', [SessionController::class, 'logout']);
 
-Route::get('/sesi/register', [SessionController::class, 'register']);
-Route::post('/sesi/create', [SessionController::class, 'create']);
+Route::get('/sesi/register', [SessionController::class, 'register'])->middleware('isTamu');
+Route::post('/sesi/create', [SessionController::class, 'create'])->middleware('isTamu');

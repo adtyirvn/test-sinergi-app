@@ -1,6 +1,5 @@
 @extends('layout.template')
 @section('konten')
-{{-- <main class="vh-100"> --}}
 <div class="h-50 d-flex align-items-center justify-content-center">
     <div class="w-50 center border rounded px-3 py-3 mx-auto my-auto">
         <h1>Login</h1>
@@ -23,6 +22,5 @@
         </form>
     </div>
 </div>
-{{-- </main> --}}
 
 @endsection
