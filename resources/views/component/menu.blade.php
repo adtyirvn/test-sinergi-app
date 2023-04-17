@@ -4,8 +4,8 @@
       <span class="fs-4">Tes</span>
     </a>
     <ul class="nav nav-pills">
-      <li class="nav-item"><a href="/notes" class="nav-link" aria-current="page">Notes</a></li>
-      <li class="nav-item"><a href="/todolists" class="nav-link" aria-current="page">Todolist</a></li>
+      <li class="nav-item"><a id="satu" href="/notes" class="nav-link" aria-current="page">Notes</a></li>
+      <li class="nav-item"><a id="dua" href="/todolists" class="nav-link" aria-current="page">Todolist</a></li>
       <li onclick="return confirm('Yakin ingin logout?')" class="nav-item"><a href="/sesi/logout" class="nav-link">Logout</a></li>
     </ul>
 </header>

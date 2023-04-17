@@ -11,6 +11,8 @@
   <body class="bg-light">
     <main class="container">
         @include('component.menu')
+        @extends('layout.template')
+        @section('konten')
         <!-- START DATA -->
         <div class="my-3 p-3 bg-body rounded shadow-sm">
                 <!-- TOMBOL TAMBAH DATA -->

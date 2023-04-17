@@ -17,12 +17,12 @@ class TodolistAjaxContoller extends Controller
      */
     public function index()
     {
-        $data_new = User::join('todolists', 'users.id', '=', 'todolists.user_id')->where('users.id', Auth::user()->id)->orderBy('todolists.note', 'asc')->get();
-        $posts = $data_new->map(function ($post) {
+        $data = User::join('todolists', 'users.id', '=', 'todolists.user_id')->where('users.id', Auth::user()->id)->orderBy('todolists.note', 'asc')->get();
+        $data_new = $data->map(function ($post) {
             $post['complete'] = $post['complete'] == 1 ? "True" : "False";
             return $post;
         });
-        return DataTables::of($posts)
+        return DataTables::of($data_new)
             ->addIndexColumn()
             ->addColumn('aksi', function ($data) {
                 return view('todolists.tombol')->with('data', $data);

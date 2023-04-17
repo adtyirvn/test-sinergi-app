@@ -2,6 +2,11 @@
 
     // 01_PROSES GET DATA
     $(document).ready(function() {
+        let path = window.location.pathname;
+            if(path === '/todolists'){
+                $("#dua").addClass('active')
+            }
+
          $('#myTable').DataTable({
              processing:true,
              serverside:true,
