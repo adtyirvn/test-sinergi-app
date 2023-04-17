@@ -9,10 +9,6 @@ class Todolist extends Model
 {
     use HasFactory;
     protected $table = 'todolists';
-    protected $fillable = ['note', 'complete'];
+    protected $fillable = ['note', 'complete', 'user_id'];
     public $timestamps = false;
-    public function getCompleteAttribute($value)
-    {
-        return $value == 1 ? true : false;
-    }
 }

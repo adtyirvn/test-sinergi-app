@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todolist;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 
 class TodolistAjaxContoller extends Controller
@@ -15,8 +17,12 @@ class TodolistAjaxContoller extends Controller
      */
     public function index()
     {
-        $data = Todolist::orderBy('note', 'asc');
-        return DataTables::of($data)
+        $data_new = User::join('todolists', 'users.id', '=', 'todolists.user_id')->where('users.id', Auth::user()->id)->orderBy('todolists.note', 'asc')->get();
+        $posts = $data_new->map(function ($post) {
+            $post['complete'] = $post['complete'] == 1 ? "True" : "False";
+            return $post;
+        });
+        return DataTables::of($posts)
             ->addIndexColumn()
             ->addColumn('aksi', function ($data) {
                 return view('todolists.tombol')->with('data', $data);
@@ -49,7 +55,8 @@ class TodolistAjaxContoller extends Controller
         } else {
             $data = [
                 'note' => $request->note,
-                'complete' => $request->option
+                'complete' => $request->option,
+                'user_id' => Auth::user()->id
             ];
             Todolist::create($data);
             return response()->json(['success' => "Berhasil menyimpan data"]);

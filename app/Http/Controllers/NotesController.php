@@ -20,7 +20,7 @@ class NotesController extends Controller
         if (strlen($katakunci)) {
             $data_new = Note::where('note', 'like', "%$katakunci%")->paginate($jumlahbaris);
         } else {
-            $data_new = User::join('notes', 'users.id', '=', 'notes.user_id')->where('users.id', Auth::user()->id)->paginate(10);
+            $data_new = User::join('notes', 'users.id', '=', 'notes.user_id')->where('users.id', Auth::user()->id)->orderBy('notes.note', 'asc')->paginate(10);
         }
         return view('notes.index')->with('data', $data_new);
     }
