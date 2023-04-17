@@ -49,7 +49,7 @@ class SessionController extends Controller
 
     function create(Request $request)
     {
-        Session::flash('name', $request->email);
+        Session::flash('name', $request->name);
         Session::flash('email', $request->email);
         $request->validate([
             'name' => 'required',
@@ -77,7 +77,7 @@ class SessionController extends Controller
         ];
 
         if (Auth::attempt($infologin)) {
-            return redirect('notes')->with('success', Auth::user()->email . ' berhasil login');
+            return redirect('notes')->with('success', Auth::user()->name . ' berhasil login');
         } else {
             return redirect('sesi')->withErrors('Username yang dimasukkan tidak valid');
         }
