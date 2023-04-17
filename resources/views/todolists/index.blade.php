@@ -55,13 +55,13 @@
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="0" checked>
                             <label class="form-check-label" for="gridRadios1">
-                                False
+                                false
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="1">
                             <label class="form-check-label" for="gridRadios2">
-                                True
+                                true
                             </label>
                         </div>
                     </div>

@@ -11,4 +11,8 @@ class Todolist extends Model
     protected $table = 'todolists';
     protected $fillable = ['note', 'complete'];
     public $timestamps = false;
+    public function getCompleteAttribute($value)
+    {
+        return $value == 1 ? true : false;
+    }
 }

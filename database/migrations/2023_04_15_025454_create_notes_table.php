@@ -15,7 +15,9 @@ return new class extends Migration
             $table->increments('id')->unique();
             $table->timestamp('tgl');
             $table->string('note');
-            $table->string('user_id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')->on('users')->onDelete('cascade');
         });
     }
 
