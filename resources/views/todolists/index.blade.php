@@ -10,11 +10,10 @@
   </head>
   <body class="bg-light">
     <main class="container">
-
         <!-- START DATA -->
         <div class="my-3 p-3 bg-body rounded shadow-sm">
                 <!-- TOMBOL TAMBAH DATA -->
-                <div class="pb-3">
+            <div class="pb-3">
                   <a href='' class="btn btn-primary tombol-tambah">+ Tambah Data</a>
                 </div>
                 <table class="table table-striped" id="myTable">
@@ -26,21 +25,9 @@
                             <th class="col-md-2">Aksi</th>
                         </tr>
                     </thead>
-                    {{-- <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Anton</td>
-                            <td>anton@gmail.com</td>
-                            <td>
-                                <a href='' class="btn btn-warning btn-sm">Edit</a>
-                                <a href='' class="btn btn-danger btn-sm">Del</a>
-                            </td>
-                        </tr>
-                    </tbody> --}}
                 </table>
           </div>
           <!-- AKHIR DATA -->
-
     </main>
     <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -60,29 +47,25 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                {{-- <label for="complete" class="col-sm-2 col-form-label">Complete</label> --}}
-                {{-- <div class="col-sm-10">
-                    <input type="text" class="form-control" name='complete' id="complete">
-                </div> --}}
                 <fieldset class="form-group">
                     <div class="row">
                       <legend class="col-form-label col-sm-2 pt-0">Complete</legend>
                       <div class="col-sm-10">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="0" checked>
-                          <label class="form-check-label" for="gridRadios1">
-                            False
-                          </label>
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="0" checked>
+                            <label class="form-check-label" for="gridRadios1">
+                                False
+                            </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="1">
-                          <label class="form-check-label" for="gridRadios2">
-                            True
-                          </label>
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="1">
+                            <label class="form-check-label" for="gridRadios2">
+                                True
+                            </label>
                         </div>
-                      </div>
                     </div>
-                  </fieldset>
+                </div>
+            </fieldset>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

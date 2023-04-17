@@ -1,4 +1,5 @@
 <script>
+
     // 01_PROSES GET DATA
     $(document).ready(function() {
          $('#myTable').DataTable({
@@ -23,12 +24,14 @@
              ]
          })
     })
+
     // AJAX GLOBAL SETUP
     $.ajaxSetup({
         headers:{
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     })
+
     // 02_PROSES TAMBAH DATA
     $('body').on('click','.tombol-tambah', function(e){
         e.preventDefault();
@@ -38,6 +41,7 @@
             // console.log(note, option);
         })
     })
+
     // 03_PROSES EDIT DATA
     $('body').on('click', '.tombol-edit', function(e){
         e.preventDefault();
@@ -57,6 +61,7 @@
             }
         })
     })
+
     // 04_PROSES DELETE DATA
     $('body').on('click', '.tombol-del', function(e){
         e.preventDefault();
@@ -73,7 +78,7 @@
     function simpan(id = ''){
         let var_url;
         let var_type;
-        if(id == ''){
+        if(id === ''){
             var_url = 'todolistAjax';
             var_type = 'POST';
         }else{
@@ -121,5 +126,4 @@
         $('.alert-success').addClass('d-none');
         $('.alert-success').html('');
     })
-
- </script>
+</script>

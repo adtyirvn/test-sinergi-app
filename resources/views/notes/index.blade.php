@@ -13,12 +13,10 @@
     <div class="pb-3">
         <a href='{{url('notes/create')}}' class="btn btn-primary">+ Tambah Data</a>
     </div>
-
     <table class="table table-striped">
         <thead>
             <tr>
                 <th class="col-md-1">No</th>
-                {{-- <th class="col-md-3">ID</th> --}}
                 <th class="col-md-4">Note</th>
                 <th class="col-md-2">User</th>
                 <th class="col-md-2">Aksi</th>
@@ -29,7 +27,6 @@
             @foreach ($data as $item)
             <tr>
                 <td>{{$i}}</td>
-                {{-- <td>{{$item->id}}</td> --}}
                 <td>{{$item->note}}</td>
                 <td>{{$item->user_id}}</td>
                 <td>
