@@ -35,40 +35,40 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="alert alert-danger d-none"></div>
                         <div class="alert alert-success d-none"></div>
-                        <div class="mb-3 row">
-                            <label for="note" class="col-sm-2 col-form-label">Note</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name='note' id="note">
-                                </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <fieldset class="form-group">
-                                <div class="row">
-                                    <legend class="col-form-label col-sm-2 pt-0">Complete</legend>
+                        <div id="input-form">
+                            <div class="mb-3 row">
+                                <label for="note" class="col-sm-2 col-form-label">Note</label>
                                     <div class="col-sm-10">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="0" checked>
-                                            <label class="form-check-label" for="gridRadios1">False</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="1">
-                                            <label class="form-check-label" for="gridRadios2">True</label>
+                                        <input type="text" class="form-control" name='note' id="note">
+                                    </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label col-sm-2 pt-0">Complete</legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="0" checked>
+                                                <label class="form-check-label" for="gridRadios1">False</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="1">
+                                                <label class="form-check-label" for="gridRadios2">True</label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </fieldset>
+                                </fieldset>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary tombol-simpan">Simpan</button>
-                            <button type="button" class="btn btn-primary tombol-simpan-edit">Simpan</button>
-
                         </div>
                     </div>
                 </div>

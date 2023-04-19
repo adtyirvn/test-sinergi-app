@@ -7,10 +7,10 @@
             }
 
         $('#myTable').DataTable({
-             processing:true,
-             serverside:true,
-             ajax:"{{url('todolistAjax')}}",
-             columns:[{
+             processing: true,
+             serverside: true,
+             ajax: "{{url('todolistAjax')}}",
+             columns: [{
                     data:'DT_RowIndex',
                     name:'DT_RowIndex',
                     orderable:false,
@@ -33,7 +33,7 @@
         })
         // AJAX GLOBAL SETUP
         $.ajaxSetup({
-            headers:{
+            headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         })
@@ -41,38 +41,33 @@
         // 02_PROSES TAMBAH DATA
         $('body').on('click','.tombol-tambah', function(e){
             e.preventDefault();
-            $('.tombol-simpan-edit').hide()
-            $('.tombol-simpan').show()
+            $('#input-form').show();
+            $('#exampleModalLabel').html('Tambah Data');
             $('#exampleModal').modal('show');
         })
 
-        $('body').on('click', '.tombol-simpan', function(e) {
-            simpan();
-        });
-
         // 03_PROSES EDIT DATA
         $('body').on('click', '.tombol-edit', function(e) {
-            $('.tombol-simpan-edit').show()
-            $('.tombol-simpan').hide()
             e.preventDefault();
             const id = $(this).data('id');
-            console.log(`edit ${id}`);
             $.ajax({
-                url: 'todolistAjax/' + id + '/edit',
+                url: `todolistAjax/${id}/edit`,
                 type: 'GET',
                 success: function(response) {
+                    $('#input-form').show();
+                    $('#exampleModalLabel').html('Edit Data');
                     $('#exampleModal').modal('show');
                     $('#note').val(response.result.note);
-                    $('input[name="gridRadios"][value="' + String(response.result.complete) + '"]').prop('checked', true);
-                    $('.tombol-simpan-edit').attr('data-id', id); // Tambahkan data-id ke tombol Simpan Edit
+                    $(`input[name="gridRadios"][value="${String(response.result.complete)}"]`).prop('checked', true);
+                    $('.tombol-simpan').attr('data-id', id);
                 }
             });
         });
 
-        $('#exampleModal').on('click', '.tombol-simpan-edit', function(e) {
-            const id = $(this).attr('data-id'); // Ambil data-id dari tombol Simpan
+        $('body').on('click', '.tombol-simpan', function(e) {
+            const id = $(this).attr('data-id');
             simpan(id)
-            console.log(id);
+            $('.tombol-simpan').attr('data-id', '');
         });
 
         // 04_PROSES DELETE DATA
@@ -89,28 +84,19 @@
             }
         })
 
-        function simpan(id = ''){
-            function checkUrlType(id) {
-                if (id === ''){
-                    return {
-                        url : 'todolistAjax/',
-                        type : 'POST'
-                    }
-                }
-                return {
-                    url : 'todolistAjax/'+id,
-                    type : 'PUT'
-                }
+        function simpan(id = '') {
+            const checkUrlType = (id) => {
+                return id === '' ? { url: 'todolistAjax/', type: 'POST' } : { url: `todolistAjax/${id}`, type: 'PUT' }
             }
             const note = $('#note').val();
             const radios = $('[name="gridRadios"]');
-            function checkOption(radios) {
-                for (var i = 0, length = radios.length; i < length; i++) {
+            const checkOption = (radios) => {
+                for (let i = 0; i < radios.length; i++) {
                     if (radios[i].checked) {
                         return radios[i].value;
-                        }
                     }
                 }
+            }
             const address = checkUrlType(id);
             const option = checkOption(radios);
             $.ajax({
@@ -120,36 +106,37 @@
                     note,
                     option,
                 },
-                success: function(response){
+                success: function(response) {
+                    const $dangerAlert = $('.alert-danger');
+                    const $successAlert = $('.alert-success');
+
+                    $dangerAlert.addClass('d-none').html('');
+                    $successAlert.addClass('d-none').html('');
+
                     if (response.errors) {
-                        $('.alert-danger').addClass('d-none');
-                        $('.alert-danger').html('');
-                        console.log(response.errors);
-                        $('.alert-danger').removeClass('d-none');
-                        $('.alert-danger').append("<ul>");
-                        $.each(response.errors, function(key, value){
-                            $('.alert-danger').find("ul").append('<li>'+value+'</li>')
+                        $dangerAlert.removeClass('d-none').append('<ul>');
+                        $.each(response.errors, function(key, value) {
+                            $dangerAlert.find('ul').append(`<li>${value}</li>`);
                         });
-                        $('.alert-danger').append("</ul>");
+                        $dangerAlert.append('</ul>');
                     } else {
-                        $('.alert-success').addClass('d-none');
-                        $('.alert-success').html('');
-                        $('.alert-success').removeClass('d-none');
-                        $('.alert-success').html(response.success);
+                        $successAlert.removeClass('d-none').html(response.success);
+                        $('#input-form').hide();
                         $('#myTable').DataTable().ajax.reload();
-                    }
-                }
-            })
-        }
+                        }
+                },
+            });
+         }
 
+        $('#exampleModal').on('hidden.bs.modal', function() {
+                const $dangerAlert = $('.alert-danger');
+                const $successAlert = $('.alert-success');
 
-        $('#exampleModal').on('hidden.bs.modal',function(){
-            $('.alert-danger').addClass('d-none');
-            $('.alert-danger').html('');
-            $('.alert-success').addClass('d-none');
-            $('.alert-success').html('');
-            $('#note').val('');
-            $('.tombol-simpan-edit').removeAttr('data-id');
+                $dangerAlert.addClass('d-none').html('');
+                $successAlert.addClass('d-none').html('');
+
+                $('#note').val('');
+                $('.tombol-simpan').removeAttr('data-id');
+            });
         })
-    })
 </script>
