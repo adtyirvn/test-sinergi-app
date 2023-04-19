@@ -44,34 +44,37 @@
             $('.tombol-simpan-edit').hide()
             $('.tombol-simpan').show()
             $('#exampleModal').modal('show');
-            $('.tombol-simpan').click(function(e){
-                e.stopImmediatePropagation();
-                simpan();
-            })
         })
+
+        $('body').on('click', '.tombol-simpan', function(e) {
+            simpan();
+        });
 
         // 03_PROSES EDIT DATA
-        $('body').on('click', '.tombol-edit', function(e){
-            e.preventDefault();
+        $('body').on('click', '.tombol-edit', function(e) {
             $('.tombol-simpan-edit').show()
             $('.tombol-simpan').hide()
+            e.preventDefault();
             const id = $(this).data('id');
-            console.log(`edit ${id}`)
+            console.log(`edit ${id}`);
             $.ajax({
-                url:'todolistAjax/' + id + '/edit',
+                url: 'todolistAjax/' + id + '/edit',
                 type: 'GET',
-                success: function(response){
+                success: function(response) {
                     $('#exampleModal').modal('show');
                     $('#note').val(response.result.note);
-                    $('input[name="gridRadios"][value='+response.result.complete+']').prop('checked', true);
-                    $('.tombol-simpan-edit').on('click', function(e){
-                        simpan(id)
-                        e.stopImmediatePropagation();
-
-                    })
+                    $('input[name="gridRadios"][value="' + String(response.result.complete) + '"]').prop('checked', true);
+                    $('.tombol-simpan-edit').attr('data-id', id); // Tambahkan data-id ke tombol Simpan Edit
                 }
-            })
-        })
+            });
+        });
+
+        $('#exampleModal').on('click', '.tombol-simpan-edit', function(e) {
+            const id = $(this).attr('data-id'); // Ambil data-id dari tombol Simpan
+            simpan(id)
+            console.log(id);
+        });
+
         // 04_PROSES DELETE DATA
         $('body').on('click', '.tombol-del', function(e){
             e.preventDefault();
@@ -93,7 +96,6 @@
                         url : 'todolistAjax/',
                         type : 'POST'
                     }
-
                 }
                 return {
                     url : 'todolistAjax/'+id,
@@ -147,6 +149,7 @@
             $('.alert-success').addClass('d-none');
             $('.alert-success').html('');
             $('#note').val('');
+            $('.tombol-simpan-edit').removeAttr('data-id');
         })
     })
 </script>
