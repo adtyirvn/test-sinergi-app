@@ -19,8 +19,8 @@
     <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            let path = window.location.pathname;
-            if(path === '/notes'){
+            const path = window.location.pathname;
+            if(/^[/notes/]/.test(path)){
                 $("#satu").addClass('active')
             }
         });

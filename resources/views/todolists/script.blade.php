@@ -1,7 +1,7 @@
 <script type='text/javascript'>
     // 01_PROSES GET DATA
     $(document).ready(function() {
-        let path = window.location.pathname;
+        const path = window.location.pathname;
             if(path === '/todolists'){
                 $("#dua").addClass('active')
             }
@@ -28,9 +28,6 @@
             ]
         })
 
-        $('#testForm').submit(function(e){
-            console.log(testi)
-        })
         // AJAX GLOBAL SETUP
         $.ajaxSetup({
             headers: {
@@ -73,9 +70,8 @@
         // 04_PROSES DELETE DATA
         $('body').on('click', '.tombol-del', function(e){
             e.preventDefault();
-            if(confirm('Yakin mau hapus data ini?') == true) {
+            if(confirm('Yakin mau hapus data ini?') === true) {
                 const id = $(this).data('id');
-                console.log(id)
                 $.ajax({
                     url: 'todolistAjax/'+id,
                     type: 'DELETE',
