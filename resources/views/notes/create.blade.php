@@ -6,7 +6,7 @@
         <div class="my-3 p-3 bg-body rounded shadow-sm">
             <div class="mb-3 row">
                 <div class="col-sm-2">
-                    <a href="{{ url('notes')}}" class="btn btn-secondary"><< kembali</a>
+                    <a href="{{ url('notes')}}" class="btn btn-secondary"><< Kembali</a>
                 </div>
             </div>
              <div class="mb-3 row">

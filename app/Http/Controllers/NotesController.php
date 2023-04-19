@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class NotesController extends Controller
 {
@@ -23,12 +24,12 @@ class NotesController extends Controller
                 ->where('notes.note', 'like', "%$katakunci%")
                 ->orderBy('notes.note', 'asc')
                 ->paginate($jumlahbaris);
-        } else {
-            $data = User::join('notes', 'users.id', '=', 'notes.user_id')
-                ->where('users.id', Auth::user()->id)
-                ->orderBy('notes.note', 'asc')
-                ->paginate(10);
+            return view('notes.index')->with('data', $data);
         }
+        $data = User::join('notes', 'users.id', '=', 'notes.user_id')
+            ->where('users.id', Auth::user()->id)
+            ->orderBy('notes.note', 'asc')
+            ->paginate(10);
         return view('notes.index')->with('data', $data);
     }
 
@@ -72,8 +73,12 @@ class NotesController extends Controller
      */
     public function edit($id)
     {
-        $data = Note::where('id', $id)->first();
-        return view('notes.edit')->with('data', $data);
+        $data = Note::where('id', $id)->get();
+        if (!Gate::allows('notes', $data)) {
+            abort(403);
+        }
+        // $data = Note::where('id', $id)->first();
+        return view('notes.edit')->with('data', $data[0]);
     }
 
     /**
@@ -81,6 +86,10 @@ class NotesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = Note::where('id', $id)->get();
+        if (!Gate::allows('notes', $data)) {
+            abort(403);
+        }
         $request->validate([
             'note' => 'required',
         ], [
@@ -98,6 +107,10 @@ class NotesController extends Controller
      */
     public function destroy(string $id)
     {
+        $data = Note::where('id', $id)->get();
+        if (!Gate::allows('notes', $data)) {
+            abort(403);
+        }
         Note::where('id', $id)->delete();
         return redirect()->to('notes')->with('success', 'Berhasil menghapus data');
     }

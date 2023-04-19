@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use App\Models\User;
+use App\Models\Note;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,5 +24,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
+
+        Gate::define('notes', function (User $user, $notes) {
+            if (count($notes) === 0) {
+                return false;
+            }
+            return $notes[0]->user_id === $user->id;
+        });
     }
 }

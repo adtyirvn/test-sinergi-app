@@ -17,7 +17,10 @@ class TodolistAjaxContoller extends Controller
      */
     public function index()
     {
-        $data = User::join('todolists', 'users.id', '=', 'todolists.user_id')->where('users.id', Auth::user()->id)->orderBy('todolists.note', 'asc')->get();
+        $data = User::join('todolists', 'users.id', '=', 'todolists.user_id')
+            ->where('users.id', Auth::user()->id)
+            ->orderBy('todolists.note', 'asc')
+            ->get();
         $data_new = $data->map(function ($post) {
             $post['complete'] = $post['complete'] == 1 ? "True" : "False";
             return $post;
@@ -45,7 +48,7 @@ class TodolistAjaxContoller extends Controller
     {
         $validator = Validator::make($request->all(), [
             'note' => 'required',
-            'option' => 'required|numeric|min:0|max:1'
+            'option' => 'required|integer|min:0|max:1'
         ], [
             'note.required' => 'Note wajib diisi',
         ]);
@@ -76,7 +79,9 @@ class TodolistAjaxContoller extends Controller
      */
     public function edit(string $id)
     {
-        $data = Todolist::where('id', $id)->first();
+        $data = Todolist::where('id', $id)
+            ->where('user_id', Auth::user()->id)
+            ->first();
         return response()->json(['result' => $data]);
     }
 
@@ -99,7 +104,9 @@ class TodolistAjaxContoller extends Controller
                 'note' => $request->note,
                 'complete' => $request->option
             ];
-            Todolist::where('id', $id)->update($data);
+            Todolist::where('id', $id)
+                ->where('user_id', Auth::user()->id)
+                ->update($data);
             return response()->json(['success' => "Berhasil melakukan update data"]);
         }
     }
@@ -109,6 +116,8 @@ class TodolistAjaxContoller extends Controller
      */
     public function destroy(string $id)
     {
-        Todolist::where('id', $id)->delete();
+        Todolist::where('id', $id)
+            ->where('user_id', Auth::user()->id)
+            ->delete();
     }
 }
